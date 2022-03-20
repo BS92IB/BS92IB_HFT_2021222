@@ -5,4 +5,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BS92IB_HFT_2021222.Models\BS92IB_HFT_2021222.Models.csproj" />
+  </ItemGroup>
+
 </Project>
