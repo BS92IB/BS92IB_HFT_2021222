@@ -30,19 +30,59 @@
             </a>
         </div>
     </nav>
-    <div class="container">                 
+    <div class="container">
         <div class="row">
             <div class="col">
                 <div class="tab-content mt-4">
+
                     <div class="tab-pane fade show active" id="fleet-tab-pane">
                         <h1 class="display-3">Welcome to the Fleet Manager</h1>
                     </div>
+
                     <div class="tab-pane fade" id="ship-tab-pane">
                         Ships
                     </div>
+
+                    <!-- Armaments tab -->
                     <div class="tab-pane fade" id="armament-tab-pane">
-                        Armaments
+                        <h2>Create, List and Edit ship armaments here</h2>
+                        <h3>New Armament</h3>
+                        <form id="armament-create-form" class="mb-3">
+                            <div class="mb-3">
+                                <label for="armament-create-ship-id" class="form-label">Ship ID</label>
+                                <input id="armament-create-ship-id" type="number" value="" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="armament-create-name" class="form-label">Name</label>
+                                <input id="armament-create-name" type="text" value="" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="armament-create-weapon-id" class="form-label">Weapon ID</label>
+                                <input id="armament-create-weapon-id" type="number" value="" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="armament-create-quantity" class="form-label">Quantity</label>
+                                <input id="armament-create-quantity" type="number" value="" class="form-control" />
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="createArmament()"><i class="fas fa-plus"></i> Add Armament</button>
+                        </form>
+                        <h3>List of existing armaments</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>ShipId</th>
+                                    <th>Name</th>
+                                    <th>WeaponId</th>
+                                    <th>Quantity</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="armament-resultarea"></tbody>
+                        </table>
                     </div>
+
+                    <!-- Weapons tab -->
                     <div class="tab-pane fade" id="weapon-tab-pane">
                         <h2>Create, List and Edit weapon definitions here</h2>
                         <h3>New Weapon</h3>
@@ -71,7 +111,7 @@
                         </table>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 
@@ -90,12 +130,46 @@
                         <div class="mb-3">
                             <label for="weapon-update-type" class="form-label">Type (e.g.: Naval gun, Torpedo, ...)</label>
                             <input id="weapon-update-type" type="text" value="" class="form-control" />
-                        </div>                        
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="updateWeapon()" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="armament-update-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Update Armament</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="armament-update-form" class="mb-3">
+                        <div class="mb-3">
+                            <label for="armament-update-ship-id" class="form-label">Ship ID</label>
+                            <input id="armament-update-ship-id" type="number" value="" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="armament-update-name" class="form-label">Name</label>
+                            <input id="armament-update-name" type="text" value="" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="armament-update-weapon-id" class="form-label">Weapon ID</label>
+                            <input id="armament-update-weapon-id" type="number" value="" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="armament-update-quantity" class="form-label">Quantity</label>
+                            <input id="armament-update-quantity" type="number" value="" class="form-control" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateArmament()" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
