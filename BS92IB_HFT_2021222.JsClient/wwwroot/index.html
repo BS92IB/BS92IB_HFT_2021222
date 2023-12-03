@@ -13,16 +13,16 @@
             <a href="#" class="navbar-brand">FleetUI</a>
             <ul class="navbar-nav nav me-auto">
                 <li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#fleet-tab-pane" type="button">Fleet</button>
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#fleet-tab-pane" type="button">Fleets</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ship-tab-pane" type="button">Ship</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ship-tab-pane" type="button">Ships</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#armament-tab-pane" type="button">Armament</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#armament-tab-pane" type="button">Armaments</button>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#weapon-tab-pane" type="button">Weapon</button>
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#weapon-tab-pane" type="button">Weapons</button>
                 </li>
             </ul>
             <a href="https://github.com/BS92IB/BS92IB_HFT_2021222" class="btn btn-link text-decoration-none ms-auto">
@@ -30,13 +30,12 @@
             </a>
         </div>
     </nav>
-    <div class="container">
-        <h1 class="display-3">Welcome to the Fleet Manager</h1>         
+    <div class="container">                 
         <div class="row">
             <div class="col">
-                <div class="tab-content">
+                <div class="tab-content mt-4">
                     <div class="tab-pane fade show active" id="fleet-tab-pane">
-                        Fleets
+                        <h1 class="display-3">Welcome to the Fleet Manager</h1>
                     </div>
                     <div class="tab-pane fade" id="ship-tab-pane">
                         Ships
@@ -45,13 +44,62 @@
                         Armaments
                     </div>
                     <div class="tab-pane fade" id="weapon-tab-pane">
-                        Weapons
+                        <h2>Create, List and Edit weapon definitions here</h2>
+                        <h3>New Weapon</h3>
+                        <form id="weapon-create-form" class="mb-3">
+                            <div class="mb-3">
+                                <label for="weapon-create-designation" class="form-label">Designation</label>
+                                <input id="weapon-create-designation" type="text" value="" class="form-control" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="weapon-create-type" class="form-label">Type (e.g.: Naval gun, Torpedo, ...)</label>
+                                <input id="weapon-create-type" type="text" value="" class="form-control" />
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="createWeapon()"><i class="fas fa-plus"></i> Add Weapon definition</button>
+                        </form>
+                        <h3>List of existing weapons</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Designation</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="weapon-resultarea"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>            
         </div>
     </div>
 
+    <div id="weapon-update-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Update Weapon</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="weapon-create-form" class="mb-3">
+                        <div class="mb-3">
+                            <label for="weapon-update-designation" class="form-label">Designation</label>
+                            <input id="weapon-update-designation" type="text" value="" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="weapon-update-type" class="form-label">Type (e.g.: Naval gun, Torpedo, ...)</label>
+                            <input id="weapon-update-type" type="text" value="" class="form-control" />
+                        </div>                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateWeapon()" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="script.js"></script>
