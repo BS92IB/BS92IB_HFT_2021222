@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>FleetUI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container">
+            <a href="#" class="navbar-brand">FleetUI</a>
+            <ul class="navbar-nav nav me-auto">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#fleet-tab-pane" type="button">Fleet</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#ship-tab-pane" type="button">Ship</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#armament-tab-pane" type="button">Armament</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#weapon-tab-pane" type="button">Weapon</button>
+                </li>
+            </ul>
+            <a href="https://github.com/BS92IB/BS92IB_HFT_2021222" class="btn btn-link text-decoration-none ms-auto">
+                <i class="fab fa-github"></i> SZTGUI - BS92IB
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="display-3">Welcome to the Fleet Manager</h1>         
+        <div class="row">
+            <div class="col">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="fleet-tab-pane">
+                        Fleets
+                    </div>
+                    <div class="tab-pane fade" id="ship-tab-pane">
+                        Ships
+                    </div>
+                    <div class="tab-pane fade" id="armament-tab-pane">
+                        Armaments
+                    </div>
+                    <div class="tab-pane fade" id="weapon-tab-pane">
+                        Weapons
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

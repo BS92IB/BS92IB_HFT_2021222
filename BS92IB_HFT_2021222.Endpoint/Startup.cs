@@ -29,7 +29,7 @@ namespace BS92IB_HFT_2021222.Endpoint
             services.AddTransient<IWeaponLogic, WeaponLogic>();
             services.AddTransient<IWeaponRepository, WeaponRepository>();
             services.AddTransient<NavyDbContext, NavyDbContext>();
-
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BS92IB_HFT_2021222.Endpoint", Version = "v1" });
@@ -43,7 +43,11 @@ namespace BS92IB_HFT_2021222.Endpoint
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(x => 
+                x.AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:53620"));
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BS92IB_HFT_2021222.Endpoint v1"));
 
