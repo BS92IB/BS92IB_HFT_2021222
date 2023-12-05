@@ -11,6 +11,7 @@ let fleetId = -1;
 getWeaponsData();
 getArmamentsData();
 getShipsData();
+getFleetsData();
 initModals();
 
 async function getWeaponsData() {
@@ -302,6 +303,81 @@ function updateShip() {
 }
 
 
+async function getFleetsData() {
+    let response = await fetch(`${apiBase}/Fleet`)
+    let json = await response.json();
+    console.log(json);
+    fleets = json;
+    displayFleets();
+}
+
+function displayFleets() {
+    let resultArea = document.getElementById('fleet-resultarea');
+    resultArea.innerHTML = "";
+    fleets.forEach(f => {
+        const rowTemplate = `<tr>
+        <td>${f.id}</td>
+        <td>${f.name}</td>
+        <td><button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#fleet-update-modal" data-fleet-id="${f.id}"><i class="fas fa-edit"></i> Update</button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="deleteFleet(${f.id})"><i class="fas fa-trash"></i> Delete</button></td>
+        </tr>`;
+        resultArea.innerHTML += rowTemplate;
+    });
+}
+
+function createFleet() {
+    let name = document.getElementById('fleet-create-name').value;
+    fetch(`${apiBase}/Fleet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name            
+        })
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getFleetsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function deleteFleet(id) {
+    fetch(`${apiBase}/Fleet/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getFleetsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function updateFleet() {
+
+    let name = document.getElementById('fleet-update-name').value;
+
+    fetch(`${apiBase}/Fleet`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: fleetId,
+            name            
+        })
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getFleetsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
 
 function initModals() {
     const weaponUpdateModal = document.getElementById('weapon-update-modal');
@@ -340,6 +416,15 @@ function initModals() {
             document.getElementById('ship-update-beam').value = ships.find(s => s.id == shipId).beam;
             document.getElementById('ship-update-draft').value = ships.find(s => s.id == shipId).draft;
             document.getElementById('ship-update-speed').value = ships.find(s => s.id == shipId).maxSpeedKnots;
+        });
+    }
+
+    const fleetUpdateModal = document.getElementById('fleet-update-modal');
+    if (fleetUpdateModal) {
+        fleetUpdateModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            fleetId = button.getAttribute('data-fleet-id');
+            document.getElementById('fleet-update-name').value = fleets.find(f => f.id == fleetId).name;
         });
     }
 }

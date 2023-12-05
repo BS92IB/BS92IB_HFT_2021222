@@ -35,8 +35,29 @@
             <div class="col">
                 <div class="tab-content mt-4">
 
+                    <!-- Fleets tab -->
                     <div class="tab-pane fade show active" id="fleet-tab-pane">
                         <h1 class="display-3">Welcome to the Fleet Manager</h1>
+                        <h2>Create, reanme or delete fleets here</h2>
+                        <h3>New Fleet</h3>
+                        <form id="fleet-create-form" class="mb-3">
+                            <div class="mb-3">
+                                <label for="fleet-create-name" class="form-label">Name</label>
+                                <input id="fleet-create-name" type="text" value="" class="form-control" />
+                            </div>
+                            <button type="button" class="btn btn-success" onclick="createFleet()"><i class="fas fa-plus"></i> Add Fleet</button>
+                        </form>
+                        <h3>List of existing fleets</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fleet-resultarea"></tbody>
+                        </table>
                     </div>
 
                     <!-- Ships tab -->
@@ -286,6 +307,28 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="updateShip()" data-bs-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fleet-update-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Update Fleet</h3>
+                </div>
+                <div class="modal-body">
+                    <form id="fleet-create-form" class="mb-3">
+                        <div class="mb-3">
+                            <label for="fleet-update-name" class="form-label">Name</label>
+                            <input id="fleet-update-name" type="text" value="" class="form-control" />
+                        </div>                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateFleet()" data-bs-dismiss="modal">Save</button>
                 </div>
             </div>
         </div>
