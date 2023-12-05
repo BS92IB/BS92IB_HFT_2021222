@@ -44,41 +44,43 @@
                         <h2>Create, List and Edit ships here</h2>
                         <h3>New Ship</h3>
                         <form id="ship-create-form" class="mb-3">
-                            <div class="mb-3">
-                                <label for="ship-create-fleet-id" class="form-label">Fleet ID</label>
-                                <input id="ship-create-fleet-id" type="number" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-name" class="form-label">Name</label>
-                                <input id="ship-create-name" type="text" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-class" class="form-label">Class</label>
-                                <input id="ship-create-class" type="text" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-hull-type" class="form-label">Hull type</label>
-                                <input id="ship-create-hull-type" type="text" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-displacement" class="form-label">Displacement (t)</label>
-                                <input id="ship-create-displacement" type="number" step="any" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-length" class="form-label">Length (m)</label>
-                                <input id="ship-create-length" type="number" step="any" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-beam" class="form-label">Beam (m)</label>
-                                <input id="ship-create-beam" type="number" step="any" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-draft" class="form-label">Draft (m)</label>
-                                <input id="ship-create-draft" type="number" step="any" value="" class="form-control" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="ship-create-speed" class="form-label">Max. speed (knots)</label>
-                                <input id="ship-create-speed" type="number" step="any" value="" class="form-control" />
+                            <div class="row row-cols-3">
+                                <div class="col mb-3">
+                                    <label for="ship-create-fleet-id" class="form-label">Fleet ID</label>
+                                    <input id="ship-create-fleet-id" type="number" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-name" class="form-label">Name</label>
+                                    <input id="ship-create-name" type="text" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-class" class="form-label">Class</label>
+                                    <input id="ship-create-class" type="text" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-hull-type" class="form-label">Hull type</label>
+                                    <input id="ship-create-hull-type" type="text" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-displacement" class="form-label">Displacement (t)</label>
+                                    <input id="ship-create-displacement" type="number" step="any" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-length" class="form-label">Length (m)</label>
+                                    <input id="ship-create-length" type="number" step="any" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-beam" class="form-label">Beam (m)</label>
+                                    <input id="ship-create-beam" type="number" step="any" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-draft" class="form-label">Draft (m)</label>
+                                    <input id="ship-create-draft" type="number" step="any" value="" class="form-control" />
+                                </div>
+                                <div class="col mb-3">
+                                    <label for="ship-create-speed" class="form-label">Max. speed (knots)</label>
+                                    <input id="ship-create-speed" type="number" step="any" value="" class="form-control" />
+                                </div>
                             </div>
                             <button type="button" class="btn btn-success" onclick="createShip()"><i class="fas fa-plus"></i> Add Ship</button>
                         </form>
