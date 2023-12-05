@@ -10,6 +10,7 @@ let fleetId = -1;
 
 getWeaponsData();
 getArmamentsData();
+getShipsData();
 initModals();
 
 async function getWeaponsData() {
@@ -184,6 +185,124 @@ function updateArmament() {
         });
 }
 
+
+
+async function getShipsData() {
+    let response = await fetch(`${apiBase}/Ship`)
+    let json = await response.json();
+    console.log(json);
+    ships = json;
+    displayShips();
+}
+
+function displayShips() {
+    let resultArea = document.getElementById('ship-resultarea');
+    resultArea.innerHTML = "";
+    ships.forEach(s => {
+        const rowTemplate = `<tr>
+        <td>${s.id}</td>
+        <td>${s.fleetId}</td>
+        <td>${s.name}</td>
+        <td>${s.class}</td>
+        <td>${s.hullType}</td>
+        <td>${s.displacement}</td>
+        <td>${s.length}</td>
+        <td>${s.beam}</td>
+        <td>${s.draft}</td>
+        <td>${s.maxSpeedKnots}</td>
+        <td><button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#ship-update-modal" data-ship-id="${s.id}"><i class="fas fa-edit"></i> Update</button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="deleteShip(${s.id})"><i class="fas fa-trash"></i> Delete</button></td>
+        </tr>`;
+        resultArea.innerHTML += rowTemplate;
+    });
+}
+
+function createShip() {
+    let fleetId = document.getElementById('ship-create-fleet-id').value;
+    let name = document.getElementById('ship-create-name').value;
+    let class_ = document.getElementById('ship-create-class').value;
+    let hullType = document.getElementById('ship-create-hull-type').value;
+    let displacement = document.getElementById('ship-create-displacement').value;
+    let length = document.getElementById('ship-create-length').value;
+    let beam = document.getElementById('ship-create-beam').value;
+    let draft = document.getElementById('ship-create-draft').value;
+    let maxSpeedKnots = document.getElementById('ship-create-speed').value;
+    fetch(`${apiBase}/Ship`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            fleetId,
+            name,
+            class: class_,
+            hullType,
+            displacement,
+            length,
+            beam,
+            draft,
+            maxSpeedKnots
+        })
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getShipsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function deleteShip(id) {
+    fetch(`${apiBase}/Ship/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getShipsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function updateShip() {
+    let fleetId = document.getElementById('ship-update-fleet-id').value;
+    let name = document.getElementById('ship-update-name').value;
+    let class_ = document.getElementById('ship-update-class').value;
+    let hullType = document.getElementById('ship-update-hull-type').value;
+    let displacement = document.getElementById('ship-update-displacement').value;
+    let length = document.getElementById('ship-update-length').value;
+    let beam = document.getElementById('ship-update-beam').value;
+    let draft = document.getElementById('ship-update-draft').value;
+    let maxSpeedKnots = document.getElementById('ship-update-speed').value;
+    fetch(`${apiBase}/Ship`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: shipId,
+            fleetId,
+            name,
+            class: class_,
+            hullType,
+            displacement,
+            length,
+            beam,
+            draft,
+            maxSpeedKnots
+        })
+    })
+        .then(data => {
+            console.log('Success: ', data)
+            getShipsData();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+
+
 function initModals() {
     const weaponUpdateModal = document.getElementById('weapon-update-modal');
     if (weaponUpdateModal) {
@@ -204,6 +323,23 @@ function initModals() {
             document.getElementById('armament-update-name').value = armaments.find(a => a.id == armamentId).name;
             document.getElementById('armament-update-weapon-id').value = armaments.find(a => a.id == armamentId).weaponId;
             document.getElementById('armament-update-quantity').value = armaments.find(a => a.id == armamentId).quantity;
+        });
+    }
+
+    const shipUpdateModal = document.getElementById('ship-update-modal');
+    if (shipUpdateModal) {
+        shipUpdateModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            shipId = button.getAttribute('data-ship-id');
+            document.getElementById('ship-update-fleet-id').value = ships.find(s => s.id == shipId).fleetId;
+            document.getElementById('ship-update-name').value = ships.find(s => s.id == shipId).name;
+            document.getElementById('ship-update-class').value = ships.find(s => s.id == shipId).class;
+            document.getElementById('ship-update-hull-type').value = ships.find(s => s.id == shipId).hullType;
+            document.getElementById('ship-update-displacement').value = ships.find(s => s.id == shipId).displacement;
+            document.getElementById('ship-update-length').value = ships.find(s => s.id == shipId).length;
+            document.getElementById('ship-update-beam').value = ships.find(s => s.id == shipId).beam;
+            document.getElementById('ship-update-draft').value = ships.find(s => s.id == shipId).draft;
+            document.getElementById('ship-update-speed').value = ships.find(s => s.id == shipId).maxSpeedKnots;
         });
     }
 }
