@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#weapon-tab-pane" type="button">Weapons</button>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#stats-tab-pane" type="button">Statistics</button>
+                </li>
             </ul>
             <a href="https://github.com/BS92IB/BS92IB_HFT_2021222" class="btn btn-link text-decoration-none ms-auto">
                 <i class="fab fa-github"></i> SZTGUI - BS92IB
@@ -192,6 +195,49 @@
                             </thead>
                             <tbody id="weapon-resultarea"></tbody>
                         </table>
+                    </div>
+
+                    <!-- Stats tab -->
+                    <div id="stats-tab-pane" class="tab-pane fade">
+                        <h3>Fastest fleet</h3>
+                        <button type="button" class="btn btn-primary" onclick="loadFastestFleet()">Load</button>
+                        <div id="stats-1-resultarea"></div>
+
+                        <h3>Total displacement</h3>
+                        <div class="row">
+                            <div class="col-auto">
+                                <label for="stats-2-fleet-id" class="col-form-label">Fleet ID</label>
+                            </div>
+                            <div class="col-auto">
+                                <input id="stats-2-fleet-id" type="text" value="" class="form-control" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" onclick="loadTotalDisplacement()">Load</button>
+                            </div>
+                        </div>
+                        <div id="stats-2-resultarea"></div>
+
+                        <h3>Total AA guns</h3>
+                        <div class="row">
+                            <div class="col-auto">
+                                <label for="stats-3-fleet-id" class="col-form-label">Fleet ID</label>
+                            </div>
+                            <div class="col-auto">
+                                <input id="stats-3-fleet-id" type="text" value="" class="form-control" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" onclick="loadTotalAaGuns()">Load</button>
+                            </div>
+                        </div>
+                        <div id="stats-3-resultarea"></div>
+
+                        <h3>Most armed fleet</h3>
+                        <button type="button" class="btn btn-primary" onclick="loadMostArmedFleet()">Load</button>
+                        <div id="stats-4-resultarea"></div>
+
+                        <h3>Fleets without an aircraft carrier</h3>
+                        <button type="button" class="btn btn-primary" onclick="loadNoCarrierFleet()">Load</button>
+                        <div id="stats-5-resultarea"></div>
                     </div>
                 </div>
             </div>

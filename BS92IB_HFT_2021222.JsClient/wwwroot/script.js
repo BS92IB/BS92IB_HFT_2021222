@@ -428,3 +428,110 @@ function initModals() {
         });
     }
 }
+
+function loadFastestFleet() {
+
+    fetch(`${apiBase}/Stat/FastestFleet`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success: ', data)
+            let resultArea = document.getElementById('stats-1-resultarea');
+            let speed = Math.min(...data.ships.map(x => x.maxSpeedKnots));
+            resultArea.innerHTML = `Fleets can move as fast as their slowest ship. The fastest fleet is: ${data.name}. It can move at ${speed} knots.`;  
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });    
+}
+
+function loadTotalDisplacement() {
+
+    let id = document.getElementById('stats-2-fleet-id').value;
+    fetch(`${apiBase}/Stat/TotalDisplacement/${id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success: ', data)
+            let resultArea = document.getElementById('stats-2-resultarea');            
+            resultArea.innerHTML = `Total displacement ${data} (t).`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            let resultArea = document.getElementById('stats-2-resultarea');
+            resultArea.innerHTML = `Could not find fleet with ID: ${id}.`;
+        });
+}
+
+function loadTotalAaGuns() {
+
+    let id = document.getElementById('stats-3-fleet-id').value;
+    fetch(`${apiBase}/Stat/TotalAaGuns/${id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success: ', data)
+            let resultArea = document.getElementById('stats-3-resultarea');
+            resultArea.innerHTML = `Total amount of AA guns in fleet: ${data}.`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            let resultArea = document.getElementById('stats-3-resultarea');
+            resultArea.innerHTML = `Could not find fleet with ID: ${id}.`;
+        });
+}
+
+function loadMostArmedFleet() {
+
+    fetch(`${apiBase}/Stat/MostArmedFleet`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success: ', data)
+            let resultArea = document.getElementById('stats-4-resultarea');            
+            resultArea.innerHTML = `The fleet with the highest combined quantity of armaments is considered the most armed. The most armed fleet is: ${data.name}.`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+function loadNoCarrierFleet() {
+
+    fetch(`${apiBase}/Stat/FleetsWithoutCarrier`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: null
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success: ', data)
+            let resultArea = document.getElementById('stats-5-resultarea');
+            let items = "";
+            data.forEach(f => {
+                items += `<li>${f.name}</li>`;
+            });
+            resultArea.innerHTML = `
+            <p>The following fleets don't have an aircraft carrier assigned to them:</p>
+            <ul>
+            ${items}
+            </ul>
+            `;
+
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
