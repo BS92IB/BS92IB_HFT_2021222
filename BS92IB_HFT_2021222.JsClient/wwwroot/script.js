@@ -7,12 +7,75 @@ let weaponId = -1;
 let armamentId = -1;
 let shipId = -1;
 let fleetId = -1;
+let connection = null;
 
 getWeaponsData();
 getArmamentsData();
 getShipsData();
 getFleetsData();
 initModals();
+setupSignalR();
+
+function setupSignalR() {
+    connection = new signalR.HubConnectionBuilder()
+        .withUrl("http://localhost:21990/hub")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+    connection.on("FleetCreated", (user, message) => {
+        getFleetsData();
+    });
+    connection.on("FleetUpdated", (user, message) => {
+        getFleetsData();
+    });
+    connection.on("FleetDeleted", (user, message) => {
+        getFleetsData();
+    });
+
+    connection.on("ShipCreated", (user, message) => {
+        getShipsData();
+    });
+    connection.on("ShipUpdated", (user, message) => {
+        getShipsData();
+    });
+    connection.on("ShipDeleted", (user, message) => {
+        getShipsData();
+    });
+
+    connection.on("ArmamentCreated", (user, message) => {
+        getArmamentsData();
+    });
+    connection.on("ArmamentUpdated", (user, message) => {
+        getArmamentsData();
+    });
+    connection.on("ArmamentDeleted", (user, message) => {
+        getArmamentsData();
+    });
+
+    connection.on("WeaponCreated", (user, message) => {
+        getWeaponsData();
+    });
+    connection.on("WeaponUpdated", (user, message) => {
+        getWeaponsData();
+    });
+    connection.on("WeaponDeleted", (user, message) => {
+        getWeaponsData();
+    });
+
+    connection.onclose(async () => {
+        await start();
+    });
+}
+
+async function start() {
+    try {
+        await connection.start();
+        console.log("SignalR Connected.");
+    } catch (err) {
+        console.log(err);
+        setTimeout(start, 5000);
+    }
+};
 
 async function getWeaponsData() {
     let response = await fetch(`${apiBase}/Weapon`)

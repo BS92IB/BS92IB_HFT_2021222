@@ -1,7 +1,10 @@
-﻿using BS92IB_HFT_2021222.Logic;
+﻿using BS92IB_HFT_2021222.Endpoint.Services;
+using BS92IB_HFT_2021222.Logic;
 using BS92IB_HFT_2021222.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +17,12 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
     public class ArmamentController : ControllerBase
     {
         private IArmamentLogic armamentLogic;
+        IHubContext<SignalRHub> hub;
 
-        public ArmamentController(IArmamentLogic armamentLogic)
+        public ArmamentController(IArmamentLogic armamentLogic, IHubContext<SignalRHub> hub)
         {
             this.armamentLogic = armamentLogic;
+            this.hub = hub;
         }
 
         // GET: /armament
@@ -39,6 +44,7 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
         public void Post([FromBody] Armament value)
         {
             armamentLogic.Create(value);
+            this.hub.Clients.All.SendAsync("ArmamentCreated", value);
         }
 
         // PUT /armament
@@ -46,13 +52,16 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
         public void Put([FromBody] Armament value)
         {
             armamentLogic.Update(value);
+            this.hub.Clients.All.SendAsync("ArmamentUpdated", value);
         }
 
         // DELETE /armament/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var armamentToDelete = this.armamentLogic.Read(id);
             armamentLogic.Delete(id);
+            this.hub.Clients.All.SendAsync("ArmamentDeleted", armamentToDelete);
         }
     }
 }

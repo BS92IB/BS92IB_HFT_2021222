@@ -1,4 +1,5 @@
 using BS92IB_HFT_2021222.Data;
+using BS92IB_HFT_2021222.Endpoint.Services;
 using BS92IB_HFT_2021222.Logic;
 using BS92IB_HFT_2021222.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,8 @@ namespace BS92IB_HFT_2021222.Endpoint
             services.AddTransient<IWeaponLogic, WeaponLogic>();
             services.AddTransient<IWeaponRepository, WeaponRepository>();
             services.AddTransient<NavyDbContext, NavyDbContext>();
+
+            services.AddSignalR();
             
             services.AddSwaggerGen(c =>
             {
@@ -56,6 +59,7 @@ namespace BS92IB_HFT_2021222.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
