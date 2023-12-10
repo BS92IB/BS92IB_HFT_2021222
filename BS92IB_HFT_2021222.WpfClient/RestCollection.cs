@@ -35,7 +35,7 @@ namespace BS92IB_HFT_2021222.WpfClient
                 wc.DownloadData(url);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }
@@ -269,9 +269,9 @@ namespace BS92IB_HFT_2021222.WpfClient
             conn.On<T>(methodname, value);
         }
 
-        public async void Init()
+        public async Task Init()
         {
-            await conn.StartAsync();
+            await conn.StartAsync();            
         }
 
     }

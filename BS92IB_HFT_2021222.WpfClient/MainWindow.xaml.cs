@@ -45,7 +45,7 @@ namespace BS92IB_HFT_2021222.WpfClient
 
         private void Button_click_3(object sender, RoutedEventArgs e)
         {
-            WeaponWIndow ww = new WeaponWIndow();
+            WeaponWindow ww = new WeaponWindow();
             ww.ShowDialog();
         }
     }

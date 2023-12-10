@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace BS92IB_HFT_2021222.WpfClient
 {
     /// <summary>
-    /// Interaction logic for WeaponWIndow.xaml
+    /// Interaction logic for WeaponWindow.xaml
     /// </summary>
-    public partial class WeaponWIndow : Window
+    public partial class WeaponWindow : Window
     {
-        public WeaponWIndow()
+        public WeaponWindow()
         {
             InitializeComponent();
         }
