@@ -1,4 +1,5 @@
 using BS92IB_HFT_2021222.Data;
+using BS92IB_HFT_2021222.Endpoint.Services;
 using BS92IB_HFT_2021222.Logic;
 using BS92IB_HFT_2021222.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,13 @@ namespace BS92IB_HFT_2021222.Endpoint
             services.AddTransient<IWeaponLogic, WeaponLogic>();
             services.AddTransient<IWeaponRepository, WeaponRepository>();
             services.AddTransient<NavyDbContext, NavyDbContext>();
+
+            services.AddSignalR();
+            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BS92IB_HFT_2021222.Endpoint", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,12 +46,20 @@ namespace BS92IB_HFT_2021222.Endpoint
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(x => 
+                x.AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:53620"));
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BS92IB_HFT_2021222.Endpoint v1"));
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }

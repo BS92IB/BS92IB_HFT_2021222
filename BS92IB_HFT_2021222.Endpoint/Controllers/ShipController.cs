@@ -1,7 +1,10 @@
-﻿using BS92IB_HFT_2021222.Logic;
+﻿using BS92IB_HFT_2021222.Endpoint.Services;
+using BS92IB_HFT_2021222.Logic;
 using BS92IB_HFT_2021222.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +17,12 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
     public class ShipController : ControllerBase
     {
         private IShipLogic shipLogic;
+        IHubContext<SignalRHub> hub;
 
-        public ShipController(IShipLogic shipLogic)
+        public ShipController(IShipLogic shipLogic, IHubContext<SignalRHub> hub)
         {
             this.shipLogic = shipLogic;
+            this.hub = hub;
         }
 
         // GET: /ship
@@ -39,6 +44,7 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
         public void Post([FromBody] Ship value)
         {
             shipLogic.Create(value);
+            this.hub.Clients.All.SendAsync("ShipCreated", value);
         }
 
         // PUT /ship
@@ -46,13 +52,16 @@ namespace BS92IB_HFT_2021222.Endpoint.Controllers
         public void Put([FromBody] Ship value)
         {
             shipLogic.Update(value);
+            this.hub.Clients.All.SendAsync("ShipUpdated", value);
         }
 
         // DELETE /ship/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var shipToDelete = this.shipLogic.Read(id);
             shipLogic.Delete(id);
+            this.hub.Clients.All.SendAsync("ShipDeleted", shipToDelete);
         }
     }
 }
